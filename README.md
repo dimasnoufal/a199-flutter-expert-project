@@ -1,6 +1,20 @@
 # a199-flutter-expert-project
 
+[![Codemagic build status](https://api.codemagic.io/apps/69941033ce28fca3f34fb7de/69941033ce28fca3f34fb7dd/status_badge.svg)](https://codemagic.io/apps/69941033ce28fca3f34fb7de/69941033ce28fca3f34fb7dd/latest_build)
+
 Repository ini merupakan starter project submission kelas Flutter Expert Dicoding Indonesia.
+
+## Build Status
+
+![Codemagic Build Success](assets/codemagic-build-status.png)
+
+## Firebase Features
+
+### Analytics Dashboard
+![Firebase Analytics](assets/analytics.png)
+
+### Crashlytics Monitoring
+![Firebase Crashlytics](assets/crashlytics.png)
 
 ---
 

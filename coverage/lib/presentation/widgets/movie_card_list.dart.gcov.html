@@ -31,13 +31,13 @@
             <td class="headerValue">test.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">85.2&nbsp;%</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
             <td class="headerCovTableEntry">27</td>
-            <td class="headerCovTableEntry">23</td>
+            <td class="headerCovTableEntry">0</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-02-14 11:06:02</td>
+            <td class="headerValue">2026-02-17 17:23:58</td>
             <td></td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
@@ -65,13 +65,13 @@
 <span id="L7"><span class="lineNum">       7</span>              : class MovieCard extends StatelessWidget {</span>
 <span id="L8"><span class="lineNum">       8</span>              :   final Movie movie;</span>
 <span id="L9"><span class="lineNum">       9</span>              : </span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">           5 :   MovieCard(this.movie);</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaUNC">           0 :   MovieCard(this.movie);</span></span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">           5 :   @override</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaUNC">           0 :   @override</span></span>
 <span id="L13"><span class="lineNum">      13</span>              :   Widget build(BuildContext context) {</span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">           5 :     return Container(</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaUNC">           0 :     return Container(</span></span>
 <span id="L15"><span class="lineNum">      15</span>              :       margin: const EdgeInsets.symmetric(vertical: 4),</span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">           5 :       child: InkWell(</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaUNC">           0 :       child: InkWell(</span></span>
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC">           0 :         onTap: () {</span></span>
 <span id="L18"><span class="lineNum">      18</span> <span class="tlaUNC">           0 :           Navigator.pushNamed(</span></span>
 <span id="L19"><span class="lineNum">      19</span>              :             context,</span>
@@ -79,28 +79,28 @@
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaUNC">           0 :             arguments: movie.id,</span></span>
 <span id="L22"><span class="lineNum">      22</span>              :           );</span>
 <span id="L23"><span class="lineNum">      23</span>              :         },</span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           5 :         child: Stack(</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaUNC">           0 :         child: Stack(</span></span>
 <span id="L25"><span class="lineNum">      25</span>              :           alignment: Alignment.bottomLeft,</span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           5 :           children: [</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           5 :             Card(</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           5 :               child: Container(</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaUNC">           0 :           children: [</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaUNC">           0 :             Card(</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaUNC">           0 :               child: Container(</span></span>
 <span id="L29"><span class="lineNum">      29</span>              :                 margin: const EdgeInsets.only(</span>
 <span id="L30"><span class="lineNum">      30</span>              :                   left: 16 + 80 + 16,</span>
 <span id="L31"><span class="lineNum">      31</span>              :                   bottom: 8,</span>
 <span id="L32"><span class="lineNum">      32</span>              :                   right: 8,</span>
 <span id="L33"><span class="lineNum">      33</span>              :                 ),</span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           5 :                 child: Column(</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaUNC">           0 :                 child: Column(</span></span>
 <span id="L35"><span class="lineNum">      35</span>              :                   crossAxisAlignment: CrossAxisAlignment.start,</span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           5 :                   children: [</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           5 :                     Text(</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          10 :                       movie.title ?? '-',</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaUNC">           0 :                   children: [</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaUNC">           0 :                     Text(</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaUNC">           0 :                       movie.title ?? '-',</span></span>
 <span id="L39"><span class="lineNum">      39</span>              :                       maxLines: 1,</span>
 <span id="L40"><span class="lineNum">      40</span>              :                       overflow: TextOverflow.ellipsis,</span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           5 :                       style: kHeading6,</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC">           0 :                       style: kHeading6,</span></span>
 <span id="L42"><span class="lineNum">      42</span>              :                     ),</span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           5 :                     SizedBox(height: 16),</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           5 :                     Text(</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          10 :                       movie.overview ?? '-',</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaUNC">           0 :                     SizedBox(height: 16),</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaUNC">           0 :                     Text(</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaUNC">           0 :                       movie.overview ?? '-',</span></span>
 <span id="L46"><span class="lineNum">      46</span>              :                       maxLines: 2,</span>
 <span id="L47"><span class="lineNum">      47</span>              :                       overflow: TextOverflow.ellipsis,</span>
 <span id="L48"><span class="lineNum">      48</span>              :                     ),</span>
@@ -108,21 +108,21 @@
 <span id="L50"><span class="lineNum">      50</span>              :                 ),</span>
 <span id="L51"><span class="lineNum">      51</span>              :               ),</span>
 <span id="L52"><span class="lineNum">      52</span>              :             ),</span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           5 :             Container(</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaUNC">           0 :             Container(</span></span>
 <span id="L54"><span class="lineNum">      54</span>              :               margin: const EdgeInsets.only(</span>
 <span id="L55"><span class="lineNum">      55</span>              :                 left: 16,</span>
 <span id="L56"><span class="lineNum">      56</span>              :                 bottom: 16,</span>
 <span id="L57"><span class="lineNum">      57</span>              :               ),</span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           5 :               child: ClipRRect(</span></span>
-<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">           5 :                 child: CachedNetworkImage(</span></span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">          15 :                   imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaUNC">           0 :               child: ClipRRect(</span></span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaUNC">           0 :                 child: CachedNetworkImage(</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaUNC">           0 :                   imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',</span></span>
 <span id="L61"><span class="lineNum">      61</span>              :                   width: 80,</span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          10 :                   placeholder: (context, url) =&gt; Center(</span></span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           5 :                     child: CircularProgressIndicator(),</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaUNC">           0 :                   placeholder: (context, url) =&gt; Center(</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaUNC">           0 :                     child: CircularProgressIndicator(),</span></span>
 <span id="L64"><span class="lineNum">      64</span>              :                   ),</span>
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaUNC">           0 :                   errorWidget: (context, url, error) =&gt; Icon(Icons.error),</span></span>
 <span id="L66"><span class="lineNum">      66</span>              :                 ),</span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">          10 :                 borderRadius: BorderRadius.all(Radius.circular(8)),</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaUNC">           0 :                 borderRadius: BorderRadius.all(Radius.circular(8)),</span></span>
 <span id="L68"><span class="lineNum">      68</span>              :               ),</span>
 <span id="L69"><span class="lineNum">      69</span>              :             ),</span>
 <span id="L70"><span class="lineNum">      70</span>              :           ],</span>
