@@ -1,125 +1,79 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/tv.dart';
+import 'package:ditonton/presentation/bloc/tv_list/tv_list_bloc.dart';
 import 'package:ditonton/presentation/pages/home_tv_page.dart';
-import 'package:ditonton/presentation/provider/tv_list_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
+import 'package:mocktail/mocktail.dart';
 
-import '../../dummy_data/dummy_objects.dart';
-import 'home_tv_page_test.mocks.dart';
+class MockTvListBloc extends MockBloc<TvListEvent, TvListState>
+    implements TvListBloc {}
 
-@GenerateMocks([TvListNotifier])
 void main() {
-  late MockTvListNotifier mockNotifier;
+  late MockTvListBloc mockBloc;
 
   setUp(() {
-    mockNotifier = MockTvListNotifier();
+    mockBloc = MockTvListBloc();
   });
 
-  Widget _makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<TvListNotifier>.value(
-      value: mockNotifier,
-      child: MaterialApp(
-        home: body,
-      ),
+  Widget makeTestableWidget(Widget body) {
+    return BlocProvider<TvListBloc>.value(
+      value: mockBloc,
+      child: MaterialApp(home: body),
     );
   }
 
-  testWidgets(
-      'Page should display center progress bar when loading on the air tv',
-      (WidgetTester tester) async {
-    when(mockNotifier.onTheAirState).thenReturn(RequestState.Loading);
-    when(mockNotifier.popularTvState).thenReturn(RequestState.Loading);
-    when(mockNotifier.topRatedTvState).thenReturn(RequestState.Loading);
+  testWidgets('Page should display center progress bar when loading', (
+    WidgetTester tester,
+  ) async {
+    when(() => mockBloc.state).thenReturn(
+      const TvListState(
+        onTheAirState: RequestState.Loading,
+        popularTvState: RequestState.Loading,
+        topRatedTvState: RequestState.Loading,
+      ),
+    );
 
-    final progressBarFinder = find.byType(CircularProgressIndicator);
+    await tester.pumpWidget(makeTestableWidget(HomeTvPage()));
 
-    await tester.pumpWidget(_makeTestableWidget(HomeTvPage()));
-
-    expect(progressBarFinder, findsWidgets);
+    expect(find.byType(CircularProgressIndicator), findsWidgets);
   });
 
-  testWidgets('Page should display TvList when on the air data is loaded',
-      (WidgetTester tester) async {
-    when(mockNotifier.onTheAirState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.onTheAirTv).thenReturn(testTvList);
-    when(mockNotifier.popularTvState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.popularTv).thenReturn(testTvList);
-    when(mockNotifier.topRatedTvState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.topRatedTv).thenReturn(testTvList);
+  testWidgets('Page should display ListView when data is loaded', (
+    WidgetTester tester,
+  ) async {
+    when(() => mockBloc.state).thenReturn(
+      TvListState(
+        onTheAirState: RequestState.Loaded,
+        onTheAirTv: <Tv>[],
+        popularTvState: RequestState.Loaded,
+        popularTv: <Tv>[],
+        topRatedTvState: RequestState.Loaded,
+        topRatedTv: <Tv>[],
+      ),
+    );
 
-    await tester.pumpWidget(_makeTestableWidget(HomeTvPage()));
+    await tester.pumpWidget(makeTestableWidget(HomeTvPage()));
 
     expect(find.byType(ListView), findsWidgets);
   });
 
-  testWidgets('Page should display error text when on the air data is error',
-      (WidgetTester tester) async {
-    when(mockNotifier.onTheAirState).thenReturn(RequestState.Error);
-    when(mockNotifier.popularTvState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.popularTv).thenReturn(testTvList);
-    when(mockNotifier.topRatedTvState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.topRatedTv).thenReturn(testTvList);
+  testWidgets('Page should display text with message when Error', (
+    WidgetTester tester,
+  ) async {
+    when(() => mockBloc.state).thenReturn(
+      const TvListState(
+        onTheAirState: RequestState.Error,
+        popularTvState: RequestState.Error,
+        topRatedTvState: RequestState.Error,
+        message: 'Error message',
+      ),
+    );
 
-    await tester.pumpWidget(_makeTestableWidget(HomeTvPage()));
+    await tester.pumpWidget(makeTestableWidget(HomeTvPage()));
 
-    expect(find.text('Failed'), findsOneWidget);
-  });
-
-  testWidgets('Page should display TvList when popular data is loaded',
-      (WidgetTester tester) async {
-    when(mockNotifier.onTheAirState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.onTheAirTv).thenReturn(testTvList);
-    when(mockNotifier.popularTvState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.popularTv).thenReturn(testTvList);
-    when(mockNotifier.topRatedTvState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.topRatedTv).thenReturn(testTvList);
-
-    await tester.pumpWidget(_makeTestableWidget(HomeTvPage()));
-
-    expect(find.byType(ListView), findsWidgets);
-  });
-
-  testWidgets('Page should display error text when popular data is error',
-      (WidgetTester tester) async {
-    when(mockNotifier.onTheAirState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.onTheAirTv).thenReturn(testTvList);
-    when(mockNotifier.popularTvState).thenReturn(RequestState.Error);
-    when(mockNotifier.topRatedTvState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.topRatedTv).thenReturn(testTvList);
-
-    await tester.pumpWidget(_makeTestableWidget(HomeTvPage()));
-
-    expect(find.text('Failed'), findsOneWidget);
-  });
-
-  testWidgets('Page should display TvList when top rated data is loaded',
-      (WidgetTester tester) async {
-    when(mockNotifier.onTheAirState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.onTheAirTv).thenReturn(testTvList);
-    when(mockNotifier.popularTvState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.popularTv).thenReturn(testTvList);
-    when(mockNotifier.topRatedTvState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.topRatedTv).thenReturn(testTvList);
-
-    await tester.pumpWidget(_makeTestableWidget(HomeTvPage()));
-
-    expect(find.byType(ListView), findsWidgets);
-  });
-
-  testWidgets('Page should display error text when top rated data is error',
-      (WidgetTester tester) async {
-    when(mockNotifier.onTheAirState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.onTheAirTv).thenReturn(testTvList);
-    when(mockNotifier.popularTvState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.popularTv).thenReturn(testTvList);
-    when(mockNotifier.topRatedTvState).thenReturn(RequestState.Error);
-
-    await tester.pumpWidget(_makeTestableWidget(HomeTvPage()));
-
-    expect(find.text('Failed'), findsOneWidget);
+    expect(find.text('Failed'), findsWidgets);
   });
 }

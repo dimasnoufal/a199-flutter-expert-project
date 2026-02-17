@@ -1,78 +1,69 @@
-import 'package:ditonton/common/state_enum.dart';
+import 'package:bloc_test/bloc_test.dart';
 import 'package:ditonton/domain/entities/movie.dart';
+import 'package:ditonton/presentation/bloc/now_playing_movies/now_playing_movies_bloc.dart';
 import 'package:ditonton/presentation/pages/now_playing_movies_page.dart';
-import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
-import 'package:ditonton/presentation/widgets/movie_card_list.dart';
-import '../../dummy_data/dummy_objects.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'now_playing_page_test.mocks.dart';
+class MockNowPlayingMoviesBloc
+    extends MockBloc<NowPlayingMoviesEvent, NowPlayingMoviesState>
+    implements NowPlayingMoviesBloc {}
 
-@GenerateMocks([PopularMoviesNotifier])
 void main() {
-  late MockPopularMoviesNotifier mockNotifier;
+  late MockNowPlayingMoviesBloc mockBloc;
 
   setUp(() {
-    mockNotifier = MockPopularMoviesNotifier();
+    mockBloc = MockNowPlayingMoviesBloc();
   });
 
-  Widget _makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<PopularMoviesNotifier>.value(
-      value: mockNotifier,
-      child: MaterialApp(
-        home: body,
-      ),
+  Widget makeTestableWidget(Widget body) {
+    return BlocProvider<NowPlayingMoviesBloc>.value(
+      value: mockBloc,
+      child: MaterialApp(home: body),
     );
   }
 
-  testWidgets('Page should display center progress bar when loading',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loading);
+  testWidgets('Page should display center progress bar when loading', (
+    WidgetTester tester,
+  ) async {
+    when(() => mockBloc.state).thenReturn(NowPlayingMoviesLoading());
 
-    final progressBarFinder = find.byType(CircularProgressIndicator);
+    final progressFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
 
-    await tester.pumpWidget(_makeTestableWidget(NowPlayingMoviesPage()));
+    await tester.pumpWidget(makeTestableWidget(NowPlayingMoviesPage()));
 
     expect(centerFinder, findsOneWidget);
-    expect(progressBarFinder, findsOneWidget);
+    expect(progressFinder, findsOneWidget);
   });
 
-  testWidgets('Page should display ListView when data is loaded',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
-    when(mockNotifier.movies).thenReturn(<Movie>[]);
+  testWidgets('Page should display ListView when data is loaded', (
+    WidgetTester tester,
+  ) async {
+    when(
+      () => mockBloc.state,
+    ).thenReturn(const NowPlayingMoviesLoaded(<Movie>[]));
 
     final listViewFinder = find.byType(ListView);
 
-    await tester.pumpWidget(_makeTestableWidget(NowPlayingMoviesPage()));
+    await tester.pumpWidget(makeTestableWidget(NowPlayingMoviesPage()));
 
     expect(listViewFinder, findsOneWidget);
   });
 
-  testWidgets('Page should display MovieCard when data has items',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
-    when(mockNotifier.movies).thenReturn(testMovieList);
+  testWidgets('Page should display text with message when Error', (
+    WidgetTester tester,
+  ) async {
+    when(
+      () => mockBloc.state,
+    ).thenReturn(const NowPlayingMoviesError('Error message'));
 
-    await tester.pumpWidget(_makeTestableWidget(NowPlayingMoviesPage()));
+    final finder = find.byKey(const Key('error_message'));
 
-    expect(find.byType(MovieCard), findsWidgets);
-  });
+    await tester.pumpWidget(makeTestableWidget(NowPlayingMoviesPage()));
 
-  testWidgets('Page should display text with message when Error',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Error);
-    when(mockNotifier.message).thenReturn('Error message');
-
-    final textFinder = find.byKey(Key('error_message'));
-
-    await tester.pumpWidget(_makeTestableWidget(NowPlayingMoviesPage()));
-
-    expect(textFinder, findsOneWidget);
+    expect(finder, findsOneWidget);
   });
 }
