@@ -1,0 +1,24 @@
+{
+  "backdrop_path": "/path.jpg",
+  "first_air_date": "2020-05-05",
+  "genres": [
+    {
+      "id": 1,
+      "name": "Action"
+    }
+  ],
+  "homepage": "https://google.com",
+  "id": 1,
+  "name": "TV Detail Name",
+  "number_of_episodes": 10,
+  "number_of_seasons": 1,
+  "original_language": "en",
+  "original_name": "Original TV Detail Name",
+  "overview": "TV Detail Overview",
+  "popularity": 1.0,
+  "poster_path": "/path.jpg",
+  "status": "Returning Series",
+  "tagline": "TV Tagline",
+  "vote_average": 1.0,
+  "vote_count": 1
+}
