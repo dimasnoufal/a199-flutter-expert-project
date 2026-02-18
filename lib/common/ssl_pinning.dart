@@ -24,8 +24,17 @@ class SSLPinning {
   }
 
   static Future<SecurityContext> get globalContext async {
-    final sslCert = await rootBundle.load('certificates/certificates.pem');
-    final securityContext = SecurityContext(withTrustedRoots: true);
+    // Rigth Certificate
+    final sslCert = await rootBundle.load(
+      'certificates/developer-themoviedb-org.pem',
+    );
+
+    // False Certificate
+    // final sslCert = await rootBundle.load('certificates/certificates.pem');
+
+    // final sslCert = await rootBundle.load('certificates/google_test.pem');
+
+    final securityContext = SecurityContext(withTrustedRoots: false);
     securityContext.setTrustedCertificatesBytes(
       sslCert.buffer.asUint8List(sslCert.offsetInBytes, sslCert.lengthInBytes),
     );
